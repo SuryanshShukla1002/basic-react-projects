@@ -6,11 +6,11 @@ function App() {
   return (
     <div className="App">
       {/* Accordian component */}
-     <Accordian/>
-     {/* Star rating */}
-     <StarRating noOfStars= {10} />
-     {/* IMage slider  */}
-     <ImageSlider url={'https://picsum.photos/v2/list'} page={'1'} limit={'10'}/>
+      <Accordian />
+      {/* Star rating */}
+      <StarRating noOfStars={10} />
+      {/* IMage slider  */}
+      <ImageSlider url={'https://picsum.photos/v2/list'} page={'1'} limit={'10'} />
     </div>
   );
 }
