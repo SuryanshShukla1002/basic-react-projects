@@ -6,6 +6,7 @@ export default function LoadMoreData() {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
   const [count, setCount] = useState(0);
+  const [disableButton, setDisableButton] = useState(false)
   async function fetchProducts() {
     try {
         setLoading(true)
@@ -16,7 +17,7 @@ export default function LoadMoreData() {
       );
       const result = await response.json()
       if(result  && result.products && result.products.length) {
-        setProducts(result.products)
+        setProducts((prevData) => [...prevData, ...result.products])
         setLoading(false)
       }
 
@@ -29,7 +30,11 @@ export default function LoadMoreData() {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [count]);
+
+  useEffect(() => {
+    if(products && products.length === 100) setDisableButton(true)
+  })
 
   if(loading){
     return <div>Loading Data! please wait</div>
@@ -45,7 +50,10 @@ export default function LoadMoreData() {
         }
     </div>
     <div>
-        <button className='button-container'>LOad more products</button>
+        <button disabled={disableButton} onClick={() => setCount(count + 1)} className='button-container'>LOad more products</button>
+        {
+            disableButton ? <p>You have reached your limit</p> : null
+        }
     </div>
   </div>
 
